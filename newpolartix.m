@@ -89,6 +89,8 @@ end
 view(axeshandle, 2);
 % Set axis limits
 axis(axeshandle, rmax * [-1, 1, -1.15, 1.15]);
+% Set title text back to visible (doesn't work?!)
+set(findall(axeshandle,'type','text'),'visible','on')
 
 end
 
