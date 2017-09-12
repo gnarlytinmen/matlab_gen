@@ -23,14 +23,16 @@ elseif nargin==4
     t=varargin{2};
     t(3)=t(3)/framerate;
     r=varargin{3}./framerate;
-    video_path=['C:\Users\tyler\Desktop\',varargin{4}];
+%     video_path=['C:\Users\tyler\Desktop\',varargin{4}];
+    video_path=['/home/tyler/Desktop/',varargin{4}];
     save_vid=1;
 elseif nargin==5
     num_frames=varargin{1}*framerate;
     t=varargin{2};
     t(3)=t(3)/framerate;
     r=varargin{3}./framerate;
-    video_path=['C:\Users\tyler\Desktop\',varargin{4}];
+%     video_path=['C:\Users\tyler\Desktop\',varargin{4}];
+    video_path=['/home/tyler/Desktop/',varargin{4}];
     if strcmp('fixation',varargin{5})
         fixation=1;
     elseif strcmp('pursuit',varargin{5})
@@ -125,34 +127,33 @@ for i=1:num_frames
     %     twodanidots(:,2,i)=tan(anidots(:,2,i)./anidots(:,3,i));
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Plot and animate
 
 M(num_frames)=struct('cdata',[],'colormap',[]);
 dot_displacement=linspace(-25.4,25.4,num_frames);
 
+fig = figure('Position',[25 50 1778 1000], 'menu', 'none', 'Color',[0 0 0]);
+ax = axes(fig);
+set(ax,'Units','pixels','Position', [0 0 1778 1000]);
+set(ax,'XLim',[-50 50],'YLim',[-35 35],'Visible','off');
+    
 for i=1:num_frames
-    fig=figure;
-    hold on;
-    scatter(twodanidots(:,1,i),twodanidots(:,2,i),'.w');
+    h1 = line(twodanidots(:,1,i),twodanidots(:,2,i),'Color','w','LineStyle','none','Marker','.','MarkerSize', 15, 'Parent', ax);
+    
     if pursuit==1
-        scatter(dot_displacement(i),0,'r','filled');
+        h2 = line(dot_displacement(i),0,'Color','r','LineStyle','none','Marker','.','MarkerSize', 30, 'Parent', ax);
     elseif fixation==1
-        scatter(0,0,'r','filled');
+        h2 = line(0,0,'Color','r','LineStyle','none','Marker','.','MarkerSize', 20, 'Parent', ax);
     end
-    set(gca,'pos', [0 0 1 1]);
-    set(gca,'XLim',[-50 50],'YLim',[-35 35],'Visible','off');
-    set(fig,'Position',[25 50 1778 1000]);
-    set(gcf, 'menu', 'none', 'Color',[0 0 0]);
     
     drawnow;
-    M(i)=getframe;
-    
-    close
+    M(i)=getframe(gcf, [0, 0, 1778, 1000]);
+    delete([h1;h2]);
 end
 
 if save_vid==1
-    writerObj = VideoWriter(video_path,'mp4');
+    writerObj = VideoWriter(video_path,'Motion JPEG AVI');
     writerObj.FrameRate = framerate;
     open(writerObj);
     for i=1:num_frames
