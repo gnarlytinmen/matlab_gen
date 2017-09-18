@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 function [M] = threeD_param_animate(data,degs,units,filename)
+=======
+function [M] = threeD_param_animate(data,degs)
+>>>>>>> d0432610e5bd23fce1ee5351781aa52254e2d00e
 % 3D parameter map
 %%% CURRENTLY HARD CODED TO PLOT TUNING CENTER
 
@@ -17,6 +21,7 @@ xmax = round(max(max(x)));
 camviewang = 3*xmax/120;
 h = scatter3(x(:,2),x(:,3),x(:,4),65,'filled');
 plot3([0 xmax],[0 xmax],[0 xmax],'r','LineWidth',5);
+<<<<<<< HEAD
 unit_lab = {' (degs)',' (sp/s)'};
 xlabel(['Normal pursuit',unit_lab(units)]);
 ylabel(['Simulated pursuit',unit_lab(units)]);
@@ -25,6 +30,18 @@ set(gca,'XLim',[0,xmax],'YLim',[0,xmax],'ZLim',[0,xmax],'FontSize',18);
 set(gca,'XGrid','on','YGrid','on','ZGrid','on','GridAlpha',0.4,...
     'CameraPosition',[2700 -2000 1200],...
     'CameraViewAngle',camviewang);
+=======
+% xlabel('Normal Pursuit (Deg)');
+% ylabel('Simulated Pursuit (Deg)');
+% zlabel('Stabilized Pursuit (Deg)');
+xlabel('Normal Pursuit (Spks/s)');
+ylabel('Simulated Pursuit (Spks/s)');
+zlabel('Stabilized Pursuit (Spks/s)');
+set(gca,'XLim',[0,xmax],'YLim',[0,xmax],'ZLim',[0,xmax],'FontSize',18);
+set(gca,'XGrid','on','YGrid','on','ZGrid','on','GridAlpha',0.4,...
+    'CameraPosition',[2700 -2000 1200],...
+    'CameraViewAngle',3);
+>>>>>>> d0432610e5bd23fce1ee5351781aa52254e2d00e
 
 axis vis3d
 
