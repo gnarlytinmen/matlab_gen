@@ -8,7 +8,7 @@ classdef pge_electric
     
     methods
         function obj = pge_electric(path,filename)
-            path = 'C:\Users\tyler\Desktop\';
+            path = '/home/';
             filename = 'electric_data.csv';
             T = readtable([path,filename],'HeaderLines',5);
             
