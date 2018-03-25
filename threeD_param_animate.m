@@ -1,9 +1,9 @@
 function [M] = threeD_param_animate(data,degs,units,filename)
 %  Plots bighead parameters in 3D scatter and creates video with animated
-%  rotation (saves to Desktop)
+%  rotation
 
 x = data;
-exportpath = ['/home/tyler/Desktop/',filename,'_paramfit_3D.avi'];
+exportpath = ['/home/tyler/',filename,'_paramfit_3D.avi'];
 framerate = 25;
 rotation_mag = degs*2;  % Degrees, multiplied by 2 since camorbit is in half-degree steps
 
