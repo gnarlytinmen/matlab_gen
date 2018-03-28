@@ -46,17 +46,26 @@ FRs = [FRs FRs(:,1)];
 az_label=-180:res*(180/pi):180;
 [x2,y2]=meshgrid(az_label,upsampElVec*(180/pi));
 
-figure3=figure;
-axes1=axes('Parent',figure3,'YLim',...
+figure3 = figure;
+axes1 = axes('Parent',figure3,'YLim',...
     [-90,90],'XLim',[-180,180],'YTick',-90:45:90,'XTick',-180:45:180,...
     'PlotBoxAspectRatio',[1.0 0.5 0.5]);
-box(axes1,'on'); hold(axes1,'all');
+box(axes1,'on');
+hold(axes1,'all');
 set(gcf,'Position',[50 200 1500 700]);
 
-[C,h]=contourf(x2,y2,FR_interps); 
+% set number of contours according to cell dynamic range
+minFR = min(min(FR_interps));
+maxFR = max(max(FR_interps));
+rangeFR = maxFR - minFR;
+
+num_conts = int8(ceil(rangeFR/5));
+
+contourf(x2,y2,FR_interps,num_conts); 
 % imagesc(az_label,sampElVec*(180/pi),FR_interps);
 
-cb=colorbar('peer',axes1);
+cb = colorbar('peer',axes1);
+caxis([0 maxFR]);
 set(get(cb,'ylabel'),'String','Firing Rate (Hz)','FontSize',15);
 set(gca,'FontSize',15);
 xlabel('Azimuth (deg)','FontSize',15);ylabel('Elevation (deg)','FontSize',15);
