@@ -1,10 +1,10 @@
-function [rawmat,FR_interps,upsampAzVec,upsampElVec]=equirectangular_map(file)
+function [rawmat,FR_interps,upsampAzVec,upsampElVec] = equirectangular_map(file)
 
 % Projects matrix of heading direction-wise firing rate values onto 2D map
 % using equirectangular Projection that optimally minimizes three distortions: 
 % area,direction and distance.
 %
-% Usage: [rawmat,FR_interps,sampAzVec,sampElVec]=winkel(path)
+% Usage: [rawmat,FR_interps,upsampAzVec,upsampElVec] = equirectangular_map(file)
 
 % Load in samples of full spherical tuning
 
