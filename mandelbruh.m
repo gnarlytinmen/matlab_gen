@@ -51,14 +51,15 @@ for i = iter0:iterMax
     mat(newBoundInds) = i;
 end
 
-mat = log(mat)./log(40);
+mat = log(mat)./log(2);
+infinds = find(mat == -Inf);
+infinds2 = find(mat(infinds-1) == -Inf);
 
-infinds = mat == -Inf;
-% maxdat = max(max(mat));
 if infinds(1) ~= 1
-    mat(infinds) = mat([infinds(2:end) 0]);
+    mat(infinds) = mat(infinds - 1);
+    mat(infinds2) = mat(infinds2 - 1);
 else
-    mat(infinds(2:end)) = mat([infinds(3:end) 0]);
+    mat(infinds(2:end)) = mat(infinds(2:end)-1);
 end
 
 % Plot
