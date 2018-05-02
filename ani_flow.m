@@ -1,11 +1,14 @@
 function [M,dots,anidots,twodanidots] = ani_flow(varargin)
 
-% Usage: [M,dots,anidots,twodanidots] = ani_flow(vid_length,t,r)
-%        [M,dots,anidots,twodanidots] = ani_flow(vid_length,t,r,video_name)
-%        t = [az el speed] in cm/sec
-%        r = [rx ry rz] in deg/sec (x:l/r, y:/d, z:f/b)
 % Generates bighead-like flow patterns with option to save to .avi
 % Uses rand_dotcloud.m and frust_mask.m functions
+%
+% Usage: [M,dots,anidots,twodanidots] = ani_flow(vid_length,t,r)
+%        [M,dots,anidots,twodanidots] = ani_flow(vid_length,t,r,video_name)
+%        vid_length (sec)
+%        video_name: output path (leaving blank suppresses saving)
+%        t = [az el speed] in cm/sec
+%        r = [rx ry rz] in deg/sec (x:l/r, y:/d, z:f/b)
 
 % Setup
 fixation = 0;
@@ -41,7 +44,7 @@ elseif nargin == 5
     save_vid = 1;
 end
 
-numdots = 4500;         % Define number of dots in intial unmasked space
+numdots = 3500;         % Define number of dots in intial unmasked space
 h = 120;    % Screen Horizontal size in cm
 v = 70;     % Screen Vertical size in cm
 d = 150;
@@ -64,7 +67,7 @@ dots1 = [r1',c1',d1'];
 [~,~,frust_vol] = frust_mask(h,v,screen_dist,d);
 
 mask = zeros(clength,clength,clength);
-mask(131:340,56:415,285:385) = frust_vol;
+mask(131:340,56:415,285:385) = frust_vol;   % don't hardcode inds
 
 % Center dots around horizontal and vertical dimensions + add screen offset
 dots(:,1) = dots1(:,2,1);   % x .... check these

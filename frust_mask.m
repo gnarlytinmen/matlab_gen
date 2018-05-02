@@ -17,15 +17,15 @@ end
 theta_h = atan(halfscreen_h/screen_dist);
 theta_v = atan(halfscreen_v/screen_dist);
 
-x = (0:1:d) + screen_dist;  % depths in generated volume
-a = x*tan(theta_h);      % distance from center to horizontal bound at each depth plane
-b = x*tan(theta_v);      % distance from center to veritcal bound at each depth plane
+z = (0:1:d) + screen_dist;  % depths in generated volume
+a = z*tan(theta_h);      % distance from center to horizontal bound at each depth plane
+b = z*tan(theta_v);      % distance from center to veritcal bound at each depth plane
 
 a_r = round(a);                   % round vals
 b_r = round(b);
 
-h = a_r(end)*2;      % width of far plane (add 4?)
-v = b_r(end)*2;      % height of far plane (add 2?)
+h = a_r(d+1)*2;      % width of far plane (add 4?)
+v = b_r(d+1)*2;      % height of far plane (add 2?)
 
 rights = (h/2)*ones(1,numel(a_r)) + a_r;        % vectors of all boundaries at each depth plane
 lefts = (h/2)*ones(1,numel(a_r)) - a_r;
