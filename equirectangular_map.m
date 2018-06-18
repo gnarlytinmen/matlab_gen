@@ -59,7 +59,8 @@ minFR = min(min(FR_interps));
 maxFR = max(max(FR_interps));
 rangeFR = maxFR - minFR;
 
-num_conts = int8(ceil(rangeFR/5));
+% num_conts = int8(ceil(rangeFR/10));
+num_conts = 15;
 
 contourf(x2,y2,FR_interps,num_conts); 
 % imagesc(az_label,sampElVec*(180/pi),FR_interps);
