@@ -11,20 +11,20 @@ function [rawmat,FR_interps,upsampAzVec,upsampElVec] = equirectangular_map(file)
 load(file);
 
 num_heads=numel(head_trials);
-rawmat=zeros(num_heads,3);
+rawmat = zeros(num_heads,3);
 
-res=2*pi*(1/100);
+res = 2*pi*(1/100);
 
-for i=1:num_heads
-    rawmat(i,1)=head_trials(i).head_az;
-    rawmat(i,2)=head_trials(i).head_el;
-    rawmat(i,3)=head_trials(i).mean_FR;
+for i = 1:num_heads
+    rawmat(i,1) = head_trials(i).head_az;
+    rawmat(i,2) = head_trials(i).head_el;
+    rawmat(i,3) = head_trials(i).mean_FR;
 end
 
 % Linearly interpolate between points in spherical coordinates 
 % (22.5deg (pi/8) resolution, azimuth outputs from -180:360:180)
 
-% [FR_interps,sampAzVec,sampElVec]=...
+% [FR_interps,sampAzVec,sampElVec] = ...
 %     spherinterp(rawmat(:,1),rawmat(:,2),rawmat(:,3),res);
 
 % Just use interp2 instead
@@ -36,15 +36,15 @@ upsampAzVec = [pi:res:2*pi-res 0:res:pi];         % Generate spherical grid to m
 upsampElVec = -1*(-pi/2:res:pi/2);    
 [upsampAzMat, upsampElMat] = meshgrid(upsampAzVec, upsampElVec);
 
-numaz=numel(unique(rawmat(:,1)));
+numaz = numel(unique(rawmat(:,1)));
 FRs = [ones(1,numaz)*rawmat(1,3);rawmat(2:9,3)';rawmat(10:17,3)';rawmat(18:25,3)';ones(1,numaz)*rawmat(26,3)];
 FRs = [FRs FRs(:,1)];
 
-[FR_interps]=interp2(sampAzMat,sampElMat,FRs,upsampAzMat,upsampElMat);
+[FR_interps] = interp2(sampAzMat,sampElMat,FRs,upsampAzMat,upsampElMat);
 
 % Plot interpolations in on cartesian plot
-az_label=-180:res*(180/pi):180;
-[x2,y2]=meshgrid(az_label,upsampElVec*(180/pi));
+az_label = -180:res*(180/pi):180;
+[x2,y2] = meshgrid(az_label,upsampElVec*(180/pi));
 
 figure3 = figure;
 axes1 = axes('Parent',figure3,'YLim',...
