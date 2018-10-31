@@ -63,7 +63,6 @@ if plotOn
     Lims = max([abs(maxDat) abs(minDat)]);
     scatter(group1,group2,100,'filled','k');
     ax1 = gca;
-    ax1.XLim = [-Lims Lims];
     set(gca,'FontSize',20);
     
     if compFxn == 3
@@ -71,6 +70,7 @@ if plotOn
         ax1.YLim = [-Lims Lims];
     else
         plot([0 0],[0 Lims],'--k');
+        ax1.XLim = [0 Lims];
     end
     
     subplot(1,2,2);
